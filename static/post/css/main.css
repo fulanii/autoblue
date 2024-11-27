@@ -1,0 +1,13 @@
+/* base */
+@import "base/reset.css";
+
+/* layouts */
+@import "layouts/header.css";
+@import "layouts/footer.css";
+
+/* pages */
+@import "pages/register.css";
+@import "pages/login.css";
+
+/* others */
+@import "utilities/colors.css";

@@ -1,0 +1,10 @@
+:root {
+  /* change these colors later */
+  --nav-bg-color: #5D62FF;
+  --nav-txt-color: wheat;
+  --nav-btn-color: #33b249;
+  --nav-hover-color: rgb(103, 107, 95);
+
+  --footer-text-colorr: black;
+  --footer-link-color: blue;
+}
