@@ -32,8 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "post",
-
+    "auto_app",
     'django_browser_reload',
 ]
 
