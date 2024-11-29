@@ -2,46 +2,46 @@
 
 /* Remove default margins and paddings */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Ensure consistent font sizes and inheritance */
-  html {
-    font-size: 100%; /* Set base font size to 16px (1rem) */
-    line-height: 1.5; /* Improve readability with consistent line height */
-  }
-  
-  body {
-    font-family: Arial, sans-serif; /* Use a clean default font */
-    color: #333; /* Neutral text color */
-    background-color: #fff; /* White background */
-  }
-  
-  /* Remove list styles */
-  ul, ol {
-    list-style: none;
-  }
-  
-  /* Remove default link underlines */
-  a {
-    text-decoration: none;
-    color: inherit; /* Use the same color as surrounding text */
-  }
-  
-  /* Reset images and media to be responsive */
-  img, video {
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
-  
-  /* Remove border and padding from buttons */
-  button {
-    border: none;
-    padding: 0;
-    background: none;
-    cursor: pointer;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure consistent font sizes and inheritance */
+html {
+  font-size: 100%; /* Set base font size to 16px (1rem) */
+  line-height: 1.5; /* Improve readability with consistent line height */
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* Remove list styles */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remove default link underlines */
+a {
+  text-decoration: none;
+  color: inherit; /* Use the same color as surrounding text */
+}
+
+/* Reset images and media to be responsive */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Remove border and padding from buttons */
+button {
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}

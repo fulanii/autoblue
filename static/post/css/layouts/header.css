@@ -3,8 +3,7 @@
   align-items: center;
   gap: 10px;
   padding: 20px;
-  background-color: var(--nav-bg-color);
-  color: var(--nav-txt-color);
+  background-color: var(--primary-bg-color);
 }
 .nav-li__home {
   margin-right: auto;
@@ -16,13 +15,13 @@
   border-radius: 10px;
 }
 .nav-li__register {
-  background-color: var(--nav-btn-color);
+  background-color: var(--primary-btn-bg-color);
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
 }
 .nav-li__login {
-  background-color: var(--nav-btn-color);
+  background-color: var(--primary-btn-bg-color);
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;

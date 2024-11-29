@@ -1,5 +1,6 @@
 /* base */
 @import "base/reset.css";
+@import "base/base.css";
 
 /* layouts */
 @import "layouts/header.css";
