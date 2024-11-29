@@ -1,0 +1,32 @@
+{% extends "auto_app/base.html" %}
+
+<!--  -->
+
+{% load static %}
+
+<!--  -->
+{% block content %}
+<section id="register">
+  <p class="register-succes"></p>
+
+  <div class="register-form-div">
+    
+    <form action="/register/" id="register-form" method="POST">
+        {% csrf_token %}
+
+        <label for="username">Username</label>
+        <input type="text" placeholder="Enter a Username 3-12 characters" name="username" required  id="username" minlength="3"  maxlength="12" autocomplete="username">
+    
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter a Password" name="password" required  autocomplete="new-password" id="password" minlength="6" >
+        
+        <input type="submit" value="Register" />
+
+    </form>
+  </div>
+</section>
+{% endblock %}
+
+{% block page_js %} 
+  <script src="{% static 'auto_app/javascript/pages/register.js' %}"></script>
+{% endblock %}

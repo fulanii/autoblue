@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Autoblue</title>
+
+    <!--  css files -->
+    <link rel="stylesheet" href="{% static 'auto_app/css/main.css' %}" />
+  </head>
+  <body>
+    <!-- navbar -->
+    <header id="header">
+      <nav class="nav">
+          <ul class="nav__ul">
+           <li class="nav-li__home"><a href="/">Home</a></li>
+          {% if user.is_authenticated %}
+          <li class="nav-li_dashboard"><a href="/dashboard/">Dashboard</a></li>
+            <li class="nav-li_logout"><a href="/logout/">Logout</a></li>
+          {% else %}
+            <li class="nav-li__register"><a href="{% url 'register' %}">Register</a></li>
+            <li class="nav-li__login"><a href="{% url 'login_view' %}">Login</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </header>
+
+
+    <main id="main">
+      {% block content %} {% endblock %}
+    </main>
+
+    <!-- footer -->
+    <footer id="footer">
+      <h3 class="footer__p">&copy; Made by <a href="https://github.com/fulanii" target="_blank">Yassine</a></h3>
+  </footer>
+
+  {% block page_js %} {% endblock %}
+  </body>
+</html>

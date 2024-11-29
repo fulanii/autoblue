@@ -1,0 +1,36 @@
+{% extends "auto_app/base.html" %}
+
+<!--  -->
+
+{% load static %}
+
+<!--  -->
+{% block content %}
+<section id="login">
+  <p class="login-succes"></p>
+
+  <div class="login-form-div">
+    <form  id="login-form" method="POST" action="/login/">
+        {% csrf_token %}
+
+        <label for="username">Username</label>
+        <input type="text" placeholder="Enter your Username" name="username" required  id="username" minlength="3"  maxlength="12" autocomplete="username">
+    
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter your Password" name="password" required   id="password" autocomplete="current-password" minlength="6">
+
+        <div class="stay-login-div">
+            <label for="stay-login"><b>Stay Login</b></label>
+            <input type="checkbox" id="stay-login" name="stay-login" value="True">
+        </div>
+        
+        <input type="submit" value="Login"/>
+
+    </form>
+  </div>
+</section>
+{% endblock %}
+
+{% block page_js %} 
+  <script src="{% static 'auto_app/javascript/pages/login.js' %}"></script>
+{% endblock %}

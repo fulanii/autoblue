@@ -1,7 +1,7 @@
 :root {
   --body-text-font: Arial, sans-serif;
   --primary-bg-color: #5d62ff;
-  --primary-text-color: wheat;
+  --primary-text-color: black; /* wheat; */
   --primary-btn-bg-color: #33b249;
 
   /* --nav-bg-color: #5d62ff; */
