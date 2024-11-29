@@ -1,0 +1,26 @@
+.nav__ul {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background-color: var(--primary-bg-color);
+}
+.nav-li__home {
+  margin-right: auto;
+  padding: 10px;
+  cursor: pointer;
+}
+.nav-li__home:hover {
+  background-color: var(--nav-hover-color);
+  border-radius: 10px;
+}
+
+.nav-li_logout,
+.nav-li__register,
+.nav-li__login,
+.nav-li_dashboard {
+  background-color: var(--primary-btn-bg-color);
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
