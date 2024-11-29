@@ -12,11 +12,13 @@
   border-radius: 10px;
   box-shadow: 0 0 15px var(--primary-bg-color);
 }
-
+#login-form {
+  display: flex;
+  flex-direction: column;
+}
 #login-form label {
   color: var(--primary-text-color);
   font-size: 14px;
-  margin-bottom: 8px;
 }
 
 #login-form input[type="text"],
@@ -35,4 +37,9 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+.stay-login-div {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 16px;
 }

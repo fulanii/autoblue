@@ -1,7 +1,8 @@
 body {
   font-family: var(--body-text-font);
   color: var(--primary-text-color);
-  background-color: var(--body-bg-color)
+  background-color: var(--body-bg-color);
+  overflow-x: hidden;
 }
 #main {
   height: 100vh;
