@@ -61,3 +61,26 @@ def dashboard(request):
 def user_logout(request):
     logout(request)
     return redirect('login_view') 
+
+@require_POST
+@login_required
+def password_change(request):
+    cur_pass = request.POST.get("cur-pass")
+    new_pass = request.POST.get("new-pass")
+
+    user = request.user  # Get the currently logged-in user
+
+    if user.check_password(cur_pass):  # Check if the provided current password is correct
+        user.set_password(new_pass)  # Change the user's password
+        user.save()  # Save changes to the database
+        return JsonResponse({"success": True, "message": "Password changed successfully"})
+    else:
+        return JsonResponse({"success": False, "message": "Current password is incorrect"})
+    
+@login_required
+def delete_account(request):
+    # account deletion logic
+
+    # redirect to home
+    
+    return JsonResponse({"success": True, "message": "Account deleted successfully"})

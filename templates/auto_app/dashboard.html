@@ -1,16 +1,73 @@
-{% extends "auto_app/base.html" %}
-
-<!--  -->
-
-{% load static %}
-
-<!--  -->
-{% block content %}
+{% extends "auto_app/base.html" %} {% load static %} {% block content %}
 <section id="dashboard">
-    <h1>Welcome Dashboard</h1>
+  <div class="dashboard-header">
+    <h1>Welcome to Autoblue {{ user.username|title }}</h1>
+  </div>
+
+  <nav class="dashboard-tabs">
+    <button class="tab-button" data-tab="tab1">Create & Schedule Post</button>
+    <button class="tab-button" data-tab="tab2">Scheduled Posts</button>
+    <button class="tab-button active" data-tab="tab3">
+      Bot Account Settings
+    </button>
+    <button class="tab-button" data-tab="tab4">Autoblue Settings</button>
+  </nav>
+
+  <div class="tab-content" id="tab1" style="display: none">
+    <h2>Create & Schedule Post</h2>
+    <form>
+      <!-- Post creation form here -->
+    </form>
+  </div>
+  <div class="tab-content" id="tab2" style="display: none">
+    <h2>Scheduled Posts</h2>
+    <!-- Scheduled posts table or list here -->
+  </div>
+  <div class="tab-content bot-div" id="tab3">
+    <div class="bot-card">
+      <button class="add-login">Add Bluesky Login</button>
+
+      <div class="added-logins-div">
+        <p class="added-username"></p>
+        <p class="added-password"></p>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content settings-div" id="tab4" style="display: none">
+    <div class="settings-card">
+      <p>
+        <strong>Account Created:</strong> {{ user.date_joined | date:"F j, Y" }}
+      </p>
+      <p><strong>Username:</strong> {{user.username|title}}</p>
+      <h3>Change Password</h3>
+      <form action="/password_change/" method="post" id="change-pass">
+        {% csrf_token %}
+        <input
+          type="password"
+          name="cur-pass"
+          id="cur-pass"
+          placeholder="Current Password"
+          autocomplete="current-password"
+          required
+          minlength="6"
+        />
+        <input
+          type="password"
+          name="new-pass"
+          id="new-pass"
+          placeholder="New Password"
+          autocomplete="new-password"
+          required
+          minlength="6"
+        />
+        <button type="button" id="togglePassword">Show</button>
+        <input type="submit" />
+      </form>
+      <h3>Delete Account</h3>
+      <button class="delete-account">Delete Account</button>
+    </div>
+  </div>
 </section>
-{% endblock %}
-
-{% block page_js %} 
-
+{% endblock %} {% block page_js %}
+<script src="{% static 'auto_app/javascript/pages/dashboard.js' %}"></script>
 {% endblock %}
