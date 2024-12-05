@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-
+from .models import UserProfile
+import json
 
 # Create your views here.
 def index(request):
@@ -31,6 +32,7 @@ def register(request):
      
     return render(request, "auto_app/register.html")
 
+
 def login_view(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -54,13 +56,23 @@ def login_view(request):
 
     return render(request, "auto_app/login.html")
 
-@login_required(login_url="/login/")
-def dashboard(request):
-    return render(request, "auto_app/dashboard.html", {"login": True})
 
 def user_logout(request):
     logout(request)
     return redirect('login_view') 
+
+
+@login_required(login_url="/login/")
+def dashboard(request):
+    user = request.user
+    current_user_profile = UserProfile.objects.filter(user_id=user.id).first()
+
+    context = {
+        "bluesky_profile": current_user_profile
+    }
+
+    return render(request, "auto_app/dashboard.html", context=context)
+
 
 @require_POST
 @login_required
@@ -77,10 +89,65 @@ def password_change(request):
     else:
         return JsonResponse({"success": False, "message": "Current password is incorrect"})
     
+@require_GET
 @login_required
 def delete_account(request):
-    # account deletion logic
-
-    # redirect to home
+    try:
+        # Delete the associated UserProfile if it exists
+        UserProfile.objects.filter(user=request.user).delete()
     
-    return JsonResponse({"success": True, "message": "Account deleted successfully"})
+        # Delete the User account
+        User.objects.filter(id=request.user.id).delete()
+
+        # Log out the user and redirect to the home page
+        return JsonResponse({"success": True, "message": "Account deleted successfully", "redirect": "/"})
+    except:
+        return JsonResponse({"success": False, "message": "Invalid request method"}, status=405)
+
+
+
+@require_POST
+@login_required
+def add_blue_login(request):
+    try:
+        data = json.loads(request.body)
+        username = data.get('username')
+        password = data.get('password')
+
+        if not username or not password:
+            return JsonResponse({"success": False, "message": "Both username and password are required."}, status=400)
+
+        # Update or create UserProfile entry
+        profile, created = UserProfile.objects.update_or_create(
+            user=request.user,
+            defaults={
+                'bluesky_username': username,
+                'bluesky_password': password  #  password encryption  handled in model
+            }
+        )
+
+        return JsonResponse({"success": True, "message": "Saved Bluesky logins successfully."})
+    except Exception as e:
+        return JsonResponse({"success": False, "message": str(e)}, status=500)
+    
+
+@require_POST
+@login_required
+def update_blue_login(request):
+    try:
+        data = json.loads(request.body)
+        new_username = data.get('newUsername')
+        new_password = data.get('newPassword')
+
+        if not new_username or not new_password:
+            return JsonResponse({"success": False, "message": "Both username and password are required."}, status=400)
+
+        # Get or create the user profile
+        profile, created = UserProfile.objects.get_or_create(user=request.user)
+        profile.bluesky_username = new_username
+        profile.bluesky_password = new_password
+        profile.save()
+
+        return JsonResponse({"success": True, "message": "Bluesky logins updated successfully."})
+    except Exception as e:
+        return JsonResponse({"success": False, "message": f"Error: {str(e)}"}, status=500)

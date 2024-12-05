@@ -25,12 +25,29 @@
   </div>
   <div class="tab-content bot-div" id="tab3">
     <div class="bot-card">
-      <button class="add-login">Add Bluesky Login</button>
+      {% if bluesky_profile %}
+        <div class="password-section">
+          <p>Username: <span>{{ bluesky_profile.bluesky_username }}</span></p>
+          <p>App Passwords: <span>************</span> </p>
 
-      <div class="added-logins-div">
-        <p class="added-username"></p>
-        <p class="added-password"></p>
-      </div>
+          <button class="update-login">Update Bluesky Login</button>
+        </div>
+      {% else %}
+        <div class="instruction-container">
+          <h2>How to Connect Your Bluesky Account</h2>
+          <ol>
+            <li>Log in to your <strong>Bluesky</strong> account.</li>
+            <li>Go to <strong>Settings</strong> &gt; <strong>App Passwords</strong>.</li>
+            <li>Create a new app named <strong>Autoblue</strong>.</li>
+            <li>Copy the generated password.</li>
+            <li>Use this password for bot automation.</li>
+          </ol>
+          <p class="note">Make sure to keep your app password secure and never share it with others.</p>
+        </div>
+      
+        <button class="add-login">Add Bluesky Login</button>
+      {% endif %}
+
     </div>
   </div>
   <div class="tab-content settings-div" id="tab4" style="display: none">

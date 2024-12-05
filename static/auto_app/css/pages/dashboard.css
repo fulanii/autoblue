@@ -100,7 +100,7 @@
   font-family: Arial, sans-serif;
 }
 .bot-card button {
-  margin-right: 10px;
+  margin-top: 10px;
   padding: 10px 20px;
   background-color: #4caf50;
   border: none;
@@ -108,3 +108,47 @@
   cursor: pointer;
   width: 100%;
 }
+
+.instruction-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.instruction-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.instruction-container ol {
+  padding-left: 20px;
+}
+
+.instruction-container ol li {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.instruction-container strong {
+  color: #0073e6;
+}
+
+.note {
+  font-size: 14px;
+  color: #666;
+  margin-top: 15px;
+  text-align: center;
+}
+
+
+
+/* media queries ----------------- media queries */
+/* media queries ----------------- media queries */
+/* breakdown 440px and bellow */

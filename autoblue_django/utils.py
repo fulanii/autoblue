@@ -1,6 +1,7 @@
 import environ
 from dotenv import load_dotenv
 from django.core.exceptions import ImproperlyConfigured
+from cryptography.fernet import Fernet
 
 load_dotenv()
 env = environ.Env()
@@ -23,3 +24,9 @@ def get_env_variable(var_name:str) -> str:
         return env(var_name)
     except: # TO-DO: fix 
         return "not found"
+
+
+def generate_secret_key() -> str:
+    """Generates and return key for encryption"""
+    key = Fernet.generate_key()
+    return key.decode()
