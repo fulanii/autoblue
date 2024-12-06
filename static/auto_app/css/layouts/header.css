@@ -24,3 +24,10 @@
   border-radius: 10px;
   cursor: pointer;
 }
+
+@media (max-width: 278px) {
+  .nav__ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
