@@ -1,62 +1,61 @@
 /* bot card ----------------- bot card */
 /* bot card  ----------------- bot card  */
 .bot-div {
-    display: flex;
-    justify-content: center;
-  }
-  .bot-card {
-    width: 350px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    font-family: Arial, sans-serif;
-  }
-  .bot-card button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #4caf50;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  .instruction-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .instruction-container h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .instruction-container ol {
-    padding-left: 20px;
-  }
-  
-  .instruction-container ol li {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .instruction-container strong {
-    color: #0073e6;
-  }
-  
-  .note {
-    font-size: 14px;
-    color: #666;
-    margin-top: 15px;
-    text-align: center;
-  }
-  
+  display: flex;
+  justify-content: center;
+}
+.bot-card {
+  width: 350px;
+  padding: 20px;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  background: var(--white);
+  font-family: Arial, sans-serif;
+}
+.bot-card button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: var(--primary-btn-bg-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.instruction-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: var(--bot-container-bg);
+  border: 1px solid var(--bot-container-border);
+  border-radius: 8px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  font-family: "Arial", sans-serif;
+}
+
+.instruction-container h2 {
+  text-align: center;
+  color: var(--black);
+  margin-bottom: 15px;
+}
+
+.instruction-container ol {
+  padding-left: 20px;
+}
+
+.instruction-container ol li {
+  margin: 10px 0;
+  font-size: 16px;
+  color: var(--dark-gray);
+}
+
+.instruction-container strong {
+  color: var(--blue);
+}
+
+.note {
+  font-size: 14px;
+  color: var(--dark-gray);
+  margin-top: 15px;
+  text-align: center;
+}
