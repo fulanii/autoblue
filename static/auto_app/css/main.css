@@ -11,6 +11,10 @@
 @import "pages/register.css";
 @import "pages/login.css";
 @import "pages/dashboard.css";
+@import "pages/partials/create_tab.css";
+@import "pages/partials/scheduled_tab.css";
+@import "pages/partials/bot_setting.css";
+@import "pages/partials/website_tab.css";
 
 /* others */
 @import "utilities/colors.css";

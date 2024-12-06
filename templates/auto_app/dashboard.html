@@ -1,90 +1,41 @@
-{% extends "auto_app/base.html" %} {% load static %} {% block content %}
+{% extends "auto_app/base.html" %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block content %}
 <section id="dashboard">
   <div class="dashboard-header">
     <h1>Welcome to Autoblue {{ user.username|title }}</h1>
   </div>
 
   <nav class="dashboard-tabs">
-    <button class="tab-button" data-tab="tab1">Create & Schedule Post</button>
-    <button class="tab-button" data-tab="tab2">Scheduled Posts</button>
-    <button class="tab-button active" data-tab="tab3">
-      Bot Account Settings
+    <button class="tab-button active" data-tab="tab1">
+      Create & Schedule Post
     </button>
+    <button class="tab-button" data-tab="tab2">Scheduled Posts</button>
+    <button class="tab-button" data-tab="tab3">Bot Account Settings</button>
     <button class="tab-button" data-tab="tab4">Autoblue Settings</button>
   </nav>
 
-  <div class="tab-content" id="tab1" style="display: none">
-    <h2>Create & Schedule Post</h2>
-    <form>
-      <!-- Post creation form here -->
-    </form>
-  </div>
-  <div class="tab-content" id="tab2" style="display: none">
-    <h2>Scheduled Posts</h2>
-    <!-- Scheduled posts table or list here -->
-  </div>
-  <div class="tab-content bot-div" id="tab3">
-    <div class="bot-card">
-      {% if bluesky_profile %}
-        <div class="password-section">
-          <p>Username: <span>{{ bluesky_profile.bluesky_username }}</span></p>
-          <p>App Passwords: <span>************</span> </p>
-
-          <button class="update-login">Update Bluesky Login</button>
-        </div>
-      {% else %}
-        <div class="instruction-container">
-          <h2>How to Connect Your Bluesky Account</h2>
-          <ol>
-            <li>Log in to your <strong>Bluesky</strong> account.</li>
-            <li>Go to <strong>Settings</strong> &gt; <strong>App Passwords</strong>.</li>
-            <li>Create a new app named <strong>Autoblue</strong>.</li>
-            <li>Copy the generated password.</li>
-            <li>Use this password for bot automation.</li>
-          </ol>
-          <p class="note">Make sure to keep your app password secure and never share it with others.</p>
-        </div>
-      
-        <button class="add-login">Add Bluesky Login</button>
-      {% endif %}
-
-    </div>
-  </div>
-  <div class="tab-content settings-div" id="tab4" style="display: none">
-    <div class="settings-card">
-      <p>
-        <strong>Account Created:</strong> {{ user.date_joined | date:"F j, Y" }}
-      </p>
-      <p><strong>Username:</strong> {{user.username|title}}</p>
-      <h3>Change Password</h3>
-      <form action="/password_change/" method="post" id="change-pass">
-        {% csrf_token %}
-        <input
-          type="password"
-          name="cur-pass"
-          id="cur-pass"
-          placeholder="Current Password"
-          autocomplete="current-password"
-          required
-          minlength="6"
-        />
-        <input
-          type="password"
-          name="new-pass"
-          id="new-pass"
-          placeholder="New Password"
-          autocomplete="new-password"
-          required
-          minlength="6"
-        />
-        <button type="button" id="togglePassword">Show</button>
-        <input type="submit" />
-      </form>
-      <h3>Delete Account</h3>
-      <button class="delete-account">Delete Account</button>
-    </div>
-  </div>
+  {% include './partials/create_tab.html' %}
+  <!--  -->
+  {% include './partials/scheduled_tab.html' %}
+  <!--  -->
+  {% include './partials/bot_setting_tab.html' %}
+  <!--  -->
+  {% include './partials/website_tab.html'%}
 </section>
-{% endblock %} {% block page_js %}
+
+{% endblock %}
+
+<!--  -->
+
+{% block page_js %}
 <script src="{% static 'auto_app/javascript/pages/dashboard.js' %}"></script>
+<script src="{% static 'auto_app/javascript/pages/partials/create_tab.js' %}"></script>
+<script src="{% static 'auto_app/javascript/pages/partials/scheduled_tab.js' %}"></script>
+<script src="{% static 'auto_app/javascript/pages/partials/bot_setting_tab.js' %}"></script>
+<script src="{% static 'auto_app/javascript/pages/partials/website_tab.js' %}"></script>
+
+
 {% endblock %}

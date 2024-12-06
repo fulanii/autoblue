@@ -1,0 +1,37 @@
+<div class="tab-content settings-div" id="tab4" style="display: none">
+  <div class="settings-card">
+    <p>
+      <strong>Account Created:</strong> {{ user.date_joined | date:"F j, Y" }}
+    </p>
+    <p><strong>Username:</strong> {{user.username|title}}</p>
+    <h3>Change Password</h3>
+    <form action="/password_change/" method="post" id="change-pass">
+      {% csrf_token %}
+
+      <input  name="username" id="username" value="user123" autocomplete="username" style="display: none;"/>
+
+      <input
+        type="password"
+        name="cur-pass"
+        id="cur-pass"
+        placeholder="Current Password"
+        autocomplete="current-password"
+        required
+        minlength="6"
+      />
+      <input
+        type="password"
+        name="new-pass"
+        id="new-pass"
+        placeholder="New Password"
+        autocomplete="new-password"
+        required
+        minlength="6"
+      />
+      <button type="button" id="togglePassword">Show</button>
+      <input type="submit" />
+    </form>
+    <h3>Delete Account</h3>
+    <button class="delete-account">Delete Account</button>
+  </div>
+</div>
