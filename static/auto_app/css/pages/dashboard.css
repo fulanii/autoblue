@@ -5,7 +5,7 @@
 }
 
 .dashboard-header h1 {
-  color: #333;
+  color: var(--primary-text-color);
   text-align: center;
   margin: 50px;
 }
@@ -13,9 +13,12 @@
 .dashboard-tabs {
   display: flex;
   justify-content: space-between;
-  /* background-color: #fff; */
   padding: 10px;
   box-shadow: 0 0 15px var(--primary-bg-color);
+
+  flex-wrap: wrap; /* Ensure buttons wrap on smaller screens */
+  gap: 10px; /* Add spacing between buttons */
+
 }
 
 .tab-button {
@@ -23,6 +26,9 @@
   border: none;
   cursor: pointer;
   transition: background 0.3s;
+
+  flex: 1; /* Makes buttons equal width */
+
 }
 
 .tab-button.active {
@@ -38,3 +44,22 @@
 /* media queries ----------------- media queries */
 /* media queries ----------------- media queries */
 /* breakdown 440px and bellow */
+
+
+@media (max-width: 440px) {
+  .dashboard-tabs {
+    flex-direction: column; /* Stack the buttons vertically */
+    gap: 5px; /* Adjust gap for vertical layout */
+  }
+
+  .tab-button {
+    font-size: 14px; /* Slightly smaller font size for smaller screens */
+  }
+  .dashboard-header h1 { 
+    margin: 0 0 50px 0;
+    font-size: 20px;
+  }
+  #dashboard{
+    padding: 5px;
+  }
+}
