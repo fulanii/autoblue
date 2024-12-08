@@ -18,4 +18,12 @@ class UserProfile(models.Model):
     def decrypt_bluesky_password(self):
         fernet = Fernet(get_env_variable("ENCRYPTION_KEY"))
         return fernet.decrypt(self.bluesky_password.encode()).decode()
-    
+
+
+class Post(models.Model):
+    user_posting = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name="posts"
+    )
+    post = models.TextField(null=False, blank=False)
+    posting_date = models.DateTimeField(auto_now_add=True)
+    is_posted = models.BooleanField(default=False)

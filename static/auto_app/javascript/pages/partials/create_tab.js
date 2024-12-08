@@ -8,6 +8,8 @@ const cancelBtn = document.querySelector(".cancel-btn");
 const textarea = document.querySelector("#content-input");
 const wordCountDisplay = document.querySelector(".word-count");
 const scheduleButton = document.querySelector(".schedule-btn");
+const postForm = document.getElementById("post-form");
+
 const maxWords = 300; // Maximum allowed word count
 
 // Close the modal if the user clicks outside the content area
@@ -25,6 +27,8 @@ createBtn.addEventListener("click", () => {
 cancelBtn.addEventListener("click", () => {
   modal.style.display = "none";
   textarea.value = "";
+  wordCountDisplay.textContent = "300";
+  wordCountDisplay.style.color = "";
 });
 
 textarea.addEventListener("input", () => {
@@ -44,3 +48,8 @@ textarea.addEventListener("input", () => {
     scheduleButton.disabled = false; // Enable if within limits
   }
 });
+
+scheduleButton.addEventListener("click", () => {
+  
+});
+

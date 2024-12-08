@@ -3,18 +3,24 @@
 
   <div id="modal">
     <div class="modal-content">
-      <div class="modal-btns">
+      <!-- <div class="modal-btns">
         <button class="cancel-btn">Cancel</button>
-        <button class="schedule-btn">Schedule</button>
-      </div>
+        <button class="schedule-btn" type="submit">Schedule</button>
+      </div> -->
 
-      <form action="">
-        <!-- <input type="text" id="content-input" placeholder="What's up?"> -->
-        <textarea name="" id="content-input" placeholder="What's up?" ></textarea>
+      <form action="/save_schedules/", method="post" id="post-form">
+        <div class="modal-btns">
+          <button class="cancel-btn">Cancel</button>
+          <button class="schedule-btn" type="submit">Schedule</button>
+        </div>
+        {% csrf_token %}
+        <textarea name="post_text" id="content-input" placeholder="What's up?"  required></textarea>
+        <div class="content-utilities">
+          <span>Pick time and date: <input type="datetime-local" name="date" required> </span>
+          <span class="word-count">300</span>
+        </div>
       </form>
-      <div class="content-utilities">
-        <span class="word-count">300</span>
-      </div>
+
     </div>
   </div>
 </div>

@@ -49,30 +49,32 @@ if (addLoginBtn) {
 }
 
 // update bluesky login
-updateBlueLoginBtn.addEventListener("click", () => {
-  const newUsername = prompt("Enter your new username");
-  const newPassword = prompt("Enter your new password");
-
-  if (newUsername && newPassword) {
-    fetch("/update_blue_login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrftoken,
-      },
-      body: JSON.stringify({ newUsername, newPassword }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          alert(data.message);
-          location.reload(); // Reload the page to reflect the changes
-        } else {
-          alert(data.message);
-        }
+if (updateBlueLoginBtn){
+  updateBlueLoginBtn.addEventListener("click", () => {
+    const newUsername = prompt("Enter your new username");
+    const newPassword = prompt("Enter your new password");
+  
+    if (newUsername && newPassword) {
+      fetch("/update_blue_login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrftoken,
+        },
+        body: JSON.stringify({ newUsername, newPassword }),
       })
-      .catch((error) => console.error("Error:", error));
-  } else {
-    alert("Both fields are required.");
-  }
-});
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert(data.message);
+            location.reload(); // Reload the page to reflect the changes
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch((error) => console.error("Error:", error));
+    } else {
+      alert("Both fields are required.");
+    }
+  });
+}
