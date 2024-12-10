@@ -6,9 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.utils.timezone import make_aware
+
 from .models import BlueskyProfile, Post
-import json
+from .tasks import post_scheduled_content
+
 from datetime import datetime
+import json
 import pytz
 
 
@@ -200,8 +203,12 @@ def update_blue_login(request):
 @require_POST
 @login_required
 def save_schedules(request):
-
     user_profile = request.user
+
+    blue_profile = BlueskyProfile.objects.get(user_id=user_profile.id)
+    blue_username = blue_profile.bluesky_username
+    blue_password = blue_profile.decrypt_bluesky_password()
+
 
     # Get the form data
     post_text = request.POST.get("post_text")
@@ -219,7 +226,14 @@ def save_schedules(request):
             post=post_text,
             posting_date=aware_datetime,
         )
-        # post.save()
+        post.save()
+
+        # Schedule the task to publish the post
+        post_scheduled_content.apply_async(
+            args=[post.id, blue_username, blue_password], 
+            eta=aware_datetime, # Schedule the task for the posting date
+        )
         return JsonResponse({"success": True, "message": "Post schedule successfully."})
-    except:
+    except Exception as e:
+        print(e)
         return JsonResponse({"success": False, "message": "Something went wrong"})
