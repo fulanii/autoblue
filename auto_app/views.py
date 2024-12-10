@@ -197,37 +197,6 @@ def update_blue_login(request):
         )
 
 
-# @require_POST
-# @login_required
-# def save_schedules(request):
-
-#     # blue_username = bluet_user_profile.bluesky_username
-#     # blue_app_passwrod = bluet_user_profile.decrypt_bluesky_password()
-
-#     login_user = request.user
-#     user_blue_profile = BlueskyProfile.objects.filter(user_id=login_user.id).first()
-#     user_posting_id = user_blue_profile.user_id
-#     post_text = request.POST.get("post_text")
-#     posting_date = request.POST.get("date_time")
-
-#     # Convert the datetime to a timezone-aware object (CST in this case)
-#     naive_datetime = datetime.strptime(posting_date, "%Y-%m-%dT%H:%M")
-#     cst = pytz.timezone("America/Chicago")
-#     aware_datetime = cst.localize(naive_datetime)
-
-#     # Save the post
-#     post = Post(
-#         user_posting=user_posting_id,
-#         post=post_text,
-#         posting_date=posting_date,
-#     )
-#     # post.save()
-
-#     print(post)
-
-#     return JsonResponse({"success": ..., "message": ...})
-
-
 @require_POST
 @login_required
 def save_schedules(request):
@@ -235,23 +204,22 @@ def save_schedules(request):
     user_profile = request.user
 
     # Get the form data
-    post_text = request.POST.get('post_text')
-    posting_date = request.POST.get('date_time')
+    post_text = request.POST.get("post_text")
+    posting_date = request.POST.get("date_time")
 
     # Convert the datetime to a timezone-aware object (CST in this case)
     naive_datetime = datetime.strptime(posting_date, "%Y-%m-%dT%H:%M")
     cst = pytz.timezone("America/Chicago")
     aware_datetime = cst.localize(naive_datetime)
 
-    # Save the post
-    post = Post(
-        user=user_profile,
-        post=post_text,
-        posting_date=aware_datetime,
-    )
-    post.save()
-
-    print(posting_date) # 2024-12-09T17:48
-    print(aware_datetime) # 2024-12-09 17:48:00-06:00
-
-    return HttpResponse("Post scheduled successfully.")
+    try:
+        # Save the post
+        post = Post(
+            user=user_profile,
+            post=post_text,
+            posting_date=aware_datetime,
+        )
+        # post.save()
+        return JsonResponse({"success": True, "message": "Post schedule successfully."})
+    except:
+        return JsonResponse({"success": False, "message": "Something went wrong"})

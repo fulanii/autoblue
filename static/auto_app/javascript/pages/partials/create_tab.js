@@ -49,7 +49,39 @@ textarea.addEventListener("input", () => {
   }
 });
 
-scheduleButton.addEventListener("click", () => {
-  
-});
+scheduleButton.addEventListener("click", (event) => {
+  event.preventDefault();
 
+  // Check if required fields are filled
+  const postText = document.querySelector("textarea[name='post_text']").value.trim();
+  const postDateTime = document.querySelector("input[name='date_time']").value.trim();
+
+  if (!postText || !postDateTime) {
+    alert("Please fill in all required fields before scheduling.");
+    return;
+  }
+
+  // Proceed with submission if validation passes
+  const postFormData = new FormData(postForm);
+
+  fetch(postForm.action, {
+    method: postForm.method,
+    body: postFormData,
+    headers: {
+      Accept: "application/json", // Expect a JSON response
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success === true) {
+        alert(data.message);
+        postForm.reset();
+      } else {
+        alert(data.error || "Something went wrong. Please try again.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("Failed to schedule the post. Please try again later.");
+    });
+});

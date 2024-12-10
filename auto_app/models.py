@@ -21,9 +21,7 @@ class BlueskyProfile(models.Model):
 
 
 class Post(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="posts"
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     post = models.TextField(null=False, blank=False)
     posting_date = models.DateTimeField(null=False, blank=False)
     is_posted = models.BooleanField(default=False)
