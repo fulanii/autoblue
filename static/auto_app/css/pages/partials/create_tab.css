@@ -12,7 +12,7 @@
   width: fit-content;
 }
 #modal {
-  display: none; /* flex  */
+  display: flex ; /* none  */
   justify-content: center;
   position: fixed;
   z-index: 1000;
@@ -78,10 +78,12 @@
   border-top: solid 1px;
   padding-top: 10px;
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
 }
 .word-count {
-  display: flex;
-  flex-direction: row-reverse;
+  margin-left: auto;
   color: var(--word-count);
 }
+/* input[type=datetime-local]{
+  border: none;
+} */

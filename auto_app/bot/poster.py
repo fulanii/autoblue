@@ -1,6 +1,6 @@
 from atproto import Client
 from django.contrib.auth.models import User
-from auto_app.models import UserProfile
+from auto_app.models import BlueskyProfile
 
 
 def post_schedules(username, app_passwrod):

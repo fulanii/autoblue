@@ -5,7 +5,7 @@ from autoblue_django.utils import get_env_variable
 from cryptography.fernet import Fernet
 
 
-class UserProfile(models.Model):
+class BlueskyProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bluesky_username = models.CharField(max_length=255)
     bluesky_password = models.CharField(blank=True, null=True)
@@ -21,9 +21,9 @@ class UserProfile(models.Model):
 
 
 class Post(models.Model):
-    user_posting = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, related_name="posts"
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="posts"
     )
     post = models.TextField(null=False, blank=False)
-    posting_date = models.DateTimeField(auto_now_add=True)
+    posting_date = models.DateTimeField(null=False, blank=False)
     is_posted = models.BooleanField(default=False)

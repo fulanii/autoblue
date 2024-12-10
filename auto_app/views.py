@@ -5,8 +5,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import UserProfile
+from django.utils.timezone import make_aware
+from .models import BlueskyProfile, Post
 import json
+from datetime import datetime
+import pytz
+
 
 # scheduler
 # from .bot.scheduler import post_schedules
@@ -72,7 +76,14 @@ def user_logout(request):
 
 @login_required(login_url="/login/")
 def dashboard(request):
-    return render(request, "auto_app/dashboard.html")
+    now = datetime.now()
+    formatted_datetime = now.strftime("%Y-%m-%dT%H:%M")
+    login_user = request.user
+    user_blue_profile = BlueskyProfile.objects.filter(user_id=login_user.id).first()
+
+    context = {"min_date": formatted_datetime, "bluesky_profile": user_blue_profile}
+
+    return render(request, "auto_app/dashboard.html", context)
 
 
 @require_POST
@@ -101,8 +112,8 @@ def password_change(request):
 @login_required
 def delete_account(request):
     try:
-        # Delete the associated UserProfile if it exists
-        UserProfile.objects.filter(user=request.user).delete()
+        # Delete the associated BlueskyProfile if it exists
+        BlueskyProfile.objects.filter(user=request.user).delete()
 
         # Delete the User account
         User.objects.filter(id=request.user.id).delete()
@@ -138,8 +149,8 @@ def add_blue_login(request):
                 status=400,
             )
 
-        # Update or create UserProfile entry
-        profile, created = UserProfile.objects.update_or_create(
+        # Update or create BlueskyProfile entry
+        profile, created = BlueskyProfile.objects.update_or_create(
             user=request.user,
             defaults={
                 "bluesky_username": username,
@@ -172,7 +183,7 @@ def update_blue_login(request):
             )
 
         # Get or create the user profile
-        profile, created = UserProfile.objects.get_or_create(user=request.user)
+        profile, created = BlueskyProfile.objects.get_or_create(user=request.user)
         profile.bluesky_username = new_username
         profile.bluesky_password = new_password
         profile.save()
@@ -186,14 +197,61 @@ def update_blue_login(request):
         )
 
 
+# @require_POST
+# @login_required
+# def save_schedules(request):
+
+#     # blue_username = bluet_user_profile.bluesky_username
+#     # blue_app_passwrod = bluet_user_profile.decrypt_bluesky_password()
+
+#     login_user = request.user
+#     user_blue_profile = BlueskyProfile.objects.filter(user_id=login_user.id).first()
+#     user_posting_id = user_blue_profile.user_id
+#     post_text = request.POST.get("post_text")
+#     posting_date = request.POST.get("date_time")
+
+#     # Convert the datetime to a timezone-aware object (CST in this case)
+#     naive_datetime = datetime.strptime(posting_date, "%Y-%m-%dT%H:%M")
+#     cst = pytz.timezone("America/Chicago")
+#     aware_datetime = cst.localize(naive_datetime)
+
+#     # Save the post
+#     post = Post(
+#         user_posting=user_posting_id,
+#         post=post_text,
+#         posting_date=posting_date,
+#     )
+#     # post.save()
+
+#     print(post)
+
+#     return JsonResponse({"success": ..., "message": ...})
+
+
+@require_POST
+@login_required
 def save_schedules(request):
-    # user = request.user
-    # bluet_user_profile = UserProfile.objects.filter(user_id=user.id).first()
 
-    # blue_username = bluet_user_profile.bluesky_username
-    # blue_app_passwrod = bluet_user_profile.decrypt_bluesky_password()
+    user_profile = request.user
 
-    if request.method == "POST":
-        print(request.POST)
+    # Get the form data
+    post_text = request.POST.get('post_text')
+    posting_date = request.POST.get('date_time')
 
-    return HttpResponse("working")
+    # Convert the datetime to a timezone-aware object (CST in this case)
+    naive_datetime = datetime.strptime(posting_date, "%Y-%m-%dT%H:%M")
+    cst = pytz.timezone("America/Chicago")
+    aware_datetime = cst.localize(naive_datetime)
+
+    # Save the post
+    post = Post(
+        user=user_profile,
+        post=post_text,
+        posting_date=aware_datetime,
+    )
+    post.save()
+
+    print(posting_date) # 2024-12-09T17:48
+    print(aware_datetime) # 2024-12-09 17:48:00-06:00
+
+    return HttpResponse("Post scheduled successfully.")
