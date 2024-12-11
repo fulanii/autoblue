@@ -22,9 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+CELERY_BROKER_URL = "redis://redis:6379/0"  # Use Redis container
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+
+# Celery Results Backend (optional)
+CELERY_RESULT_BACKEND = "django-db"
 
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -33,8 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "auto_app",
-    "django_browser_reload",
-    # "django_celery_beat",
+    "django_celery_beat",
+    "django_celery_results",
 ]
 
 MIDDLEWARE = [

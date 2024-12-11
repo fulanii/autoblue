@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "autoblue_django.settings")
+from .utils import get_settings_path
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", get_settings_path())
 
 application = get_wsgi_application()
