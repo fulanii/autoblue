@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.utils.timezone import make_aware
 
 from .models import BlueskyProfile, Post
-from .tasks import post_scheduled_content
+from .tasks import post_scheduled_content, cancel_task
 
 from datetime import datetime
 import json
@@ -79,12 +79,19 @@ def user_logout(request):
 
 @login_required(login_url="/login/")
 def dashboard(request):
+    login_user = request.user
+
     now = datetime.now()
     formatted_datetime = now.strftime("%Y-%m-%dT%H:%M")
-    login_user = request.user
-    user_blue_profile = BlueskyProfile.objects.filter(user_id=login_user.id).first()
 
-    context = {"min_date": formatted_datetime, "bluesky_profile": user_blue_profile}
+    user_blue_profile = BlueskyProfile.objects.filter(user_id=login_user.id).first()
+    user_all_blue_post = Post.objects.filter(user_id=login_user.id)
+
+    context = {
+        "min_date": formatted_datetime,
+        "bluesky_profile": user_blue_profile,
+        "all_blue_post": user_all_blue_post,
+    }
 
     return render(request, "auto_app/dashboard.html", context)
 
@@ -209,7 +216,6 @@ def save_schedules(request):
     blue_username = blue_profile.bluesky_username
     blue_password = blue_profile.decrypt_bluesky_password()
 
-
     # Get the form data
     post_text = request.POST.get("post_text")
     posting_date = request.POST.get("date_time")
@@ -229,11 +235,25 @@ def save_schedules(request):
         post.save()
 
         # Schedule the task to publish the post
-        post_scheduled_content.apply_async(
-            args=[post.id, blue_username, blue_password], 
-            eta=aware_datetime, # Schedule the task for the posting date
+        task = post_scheduled_content.apply_async(
+            args=[post.id, blue_username, blue_password],
+            eta=aware_datetime,  # Schedule the task for the posting date
         )
+        task_id =  task.id 
+
+        # save task_id to BlueskyProfile
+        post.task_id = task_id
+        post.save()
+
         return JsonResponse({"success": True, "message": "Post schedule successfully."})
     except Exception as e:
         print(e)
         return JsonResponse({"success": False, "message": "Something went wrong"})
+
+@require_POST
+@login_required
+def cancel_post(request):
+    data = json.loads(request.body)
+    post_id = data.get("postId")
+    result = cancel_task(post_id)
+    return JsonResponse(result)

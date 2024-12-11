@@ -1,0 +1,91 @@
+#tab2 {
+  display: flex;
+  justify-content: center;
+}
+
+.scheduled_tab-container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.scheduled_btn-tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.scheduled_tab-button {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px 5px 0 0;
+  transition: background-color 0.3s ease;
+}
+
+.scheduled_tab-button.active {
+  background-color: #007bff;
+  color: white;
+  border-bottom: none;
+}
+
+.scheduled-tab-panel {
+  display: none;
+}
+
+.scheduled-tab-panel.active {
+  display: block;
+}
+
+.scheduled-tab-panel {
+  margin-top: 20px;
+}
+
+.post-list {
+  display: grid;
+  gap: 15px;
+}
+
+.scheduled-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-content {
+  margin-bottom: 10px;
+}
+
+.post-text {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.post-date {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 5px 0 0 0;
+}
+
+.cancel-btn {
+  padding: 8px 12px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #c82333;
+}

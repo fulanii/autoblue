@@ -1,4 +1,62 @@
 <div class="tab-content" id="tab2" style="display: none">
-    <h2>Scheduled Posts</h2>
-    <!-- Scheduled posts table or list here -->
+
+  <div class="scheduled_tab-container">
+    <div class="scheduled_btn-tabs">
+      <button class="scheduled_tab-button active" data-target="to-be-posted">To be posted</button>
+      <button class="scheduled_tab-button" data-target="already-posted">Already posted</button>
+    </div>
+
+    <div class="scheduled_tab-content">
+
+      <!-- To be Posted Section -->
+      <div id="to-be-posted" class="scheduled-tab-panel active">
+        <div class="post-list" id="toBePostedList">
+      
+          {% if all_blue_post %}
+
+            {% for post in all_blue_post %}
+
+              {% if not post.is_posted %}
+                <div class="scheduled-card">
+                  <div class="card-content">
+                    <p class="post-text">{{ post.post }}</p>
+                    <p class="post-date">Posting Date: {{ post.posting_date }}</p>
+                  </div>
+                  <button class="cancel-btn" onclick="cancelPost('{{ post.id }}')">Cancel</button>
+                </div>          
+              {% endif %}
+
+            {% endfor %}
+
+          {% else %}
+              <p>No Schedule post yet</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Already Posted Section -->
+      <div id="already-posted" class="scheduled-tab-panel">
+        <div class="post-list" id="alreadyPostedList">
+          {% if all_blue_post %}
+          {% for post in all_blue_post %}
+                {% if post.is_posted %}
+                  <div class="scheduled-card">
+                    <div class="card-content">
+                      <p class="post-text">{{ post.post|linebreaksbr }}</p>
+                      <p class="post-date">Posted Date: {{ post.posting_date }}</p>
+                    </div>
+                  </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+          <p>No posts have been posted yet.</p>
+        {% endif %}
+  
+        </div>
+      </div>
+
+    </div>
   </div>
+  
+</div>
+

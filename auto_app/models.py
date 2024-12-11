@@ -25,3 +25,4 @@ class Post(models.Model):
     post = models.TextField(null=False, blank=False)
     posting_date = models.DateTimeField(null=False, blank=False)
     is_posted = models.BooleanField(default=False)
+    task_id = models.CharField(null=True, blank=True)

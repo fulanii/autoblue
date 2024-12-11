@@ -13,4 +13,5 @@ urlpatterns = [
     path("add_blue_login/", views.add_blue_login, name="add_blue_login"),
     path("update_blue_login/", views.update_blue_login, name="update_blue_login"),
     path("save_schedules/", views.save_schedules, name="save_schedules"),
+    path("cancel_post/", views.cancel_post, name="cancel_post"),
 ]

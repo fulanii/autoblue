@@ -13,22 +13,26 @@ const postForm = document.getElementById("post-form");
 const maxWords = 300; // Maximum allowed word count
 
 // Close the modal if the user clicks outside the content area
-window.onclick = function (event) {
-  if (event.target === modal) {
-    modal.style.display = "none";
-  }
-};
+// window.onclick = function (event) {
+//   if (event.target === modal) {
+//     modal.style.display = "none";
+//   }
+// };
 
 createBtn.addEventListener("click", () => {
   modal.style.display = "flex";
   textarea.focus();
 });
 
-cancelBtn.addEventListener("click", () => {
-  modal.style.display = "none";
-  textarea.value = "";
-  wordCountDisplay.textContent = "300";
-  wordCountDisplay.style.color = "";
+cancelBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  const userResponse = confirm("Are you sure you'd like to discard? ");
+  if (userResponse) {
+    modal.style.display = "none";
+    textarea.value = "";
+    wordCountDisplay.textContent = "300";
+    wordCountDisplay.style.color = "";
+  }
 });
 
 textarea.addEventListener("input", () => {
@@ -53,8 +57,12 @@ scheduleButton.addEventListener("click", (event) => {
   event.preventDefault();
 
   // Check if required fields are filled
-  const postText = document.querySelector("textarea[name='post_text']").value.trim();
-  const postDateTime = document.querySelector("input[name='date_time']").value.trim();
+  const postText = document
+    .querySelector("textarea[name='post_text']")
+    .value.trim();
+  const postDateTime = document
+    .querySelector("input[name='date_time']")
+    .value.trim();
 
   if (!postText || !postDateTime) {
     alert("Please fill in all required fields before scheduling.");
@@ -75,6 +83,13 @@ scheduleButton.addEventListener("click", (event) => {
     .then((data) => {
       if (data.success === true) {
         alert(data.message);
+        // close form
+        modal.style.display = "none";
+        textarea.value = "";
+        wordCountDisplay.textContent = "300";
+        wordCountDisplay.style.color = "";
+
+        location.reload();
         postForm.reset();
       } else {
         alert(data.error || "Something went wrong. Please try again.");
