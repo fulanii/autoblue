@@ -1,11 +1,19 @@
+import os
 import environ
 from dotenv import load_dotenv
 from django.core.exceptions import ImproperlyConfigured
 from cryptography.fernet import Fernet
 
-load_dotenv()
 env = environ.Env()
-environ.Env.read_env()
+
+# Determine environment
+ENVIRONMENT = os.getenv('DJANGO_ENV', 'local')
+
+# Load environment-specific .env file
+if ENVIRONMENT == 'production':
+    environ.Env.read_env('.env.prod')
+elif ENVIRONMENT == "local":
+    environ.Env.read_env('.env.dev')
 
 
 def get_settings_path() -> str:

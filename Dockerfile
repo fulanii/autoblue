@@ -1,6 +1,9 @@
 # Use the official Python image
 FROM python:3.12-slim
 
+ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE 1
+
 # Create a non-root user
 RUN useradd -m myuser
 
@@ -13,7 +16,7 @@ ARG SECRET_KEY
 ARG DB_NAME
 ARG DB_USER
 ARG DB_PASSWORD
-# ARG DB_HOST
+ARG DB_HOST
 ARG DB_PORT
 ARG ENCRYPTION_KEY
 ARG REDIS_HOST
@@ -34,10 +37,10 @@ ENV DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE \
     DB_NAME=$DB_NAME \
     DB_USER=$DB_USER \
     DB_PASSWORD=$DB_PASSWORD \
-    DB_HOST="db" \
+    DB_HOST=$DB_HOST \
     DB_PORT=$DB_PORT \
     ENCRYPTION_KEY=$ENCRYPTION_KEY \
-    REDIS_HOST=$REDIS_HOST
+    REDIS_HOST=$REDIS_HOST 
 
 # Set the user to the non-root user
 USER myuser
@@ -46,5 +49,5 @@ USER myuser
 EXPOSE 8000
 
 # Command to run the project
-# CMD ["gunicorn", "--bind", "0.0.0.0:8000", "autoblue_django.wsgi:application"]
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "autoblue_django.wsgi:application"]
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
