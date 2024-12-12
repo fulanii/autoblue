@@ -1,79 +1,4 @@
-# version: '3.8'
-
-# services:
-#   web:
-#     build:
-#       context: .
-#     command: gunicorn autoblue_django.wsgi:application --bind 0.0.0.0:8000
-#     volumes:
-#       - .:/app
-#     ports:
-#       - "8000:8000"
-#     env_file:
-#       - .env
-#     depends_on:
-#       - redis
-#       - db
-#       - celery_worker
-#       - celery_beat
-
-#   db:
-#     image: postgres:15
-#     environment:
-#       POSTGRES_USER: ${DB_USER}
-#       POSTGRES_PASSWORD: ${DB_PASSWORD}
-#       POSTGRES_DB: ${DB_NAME}
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data
-
-#   redis:
-#     image: redis:7.2
-#     ports:
-#       - "6379:6379"
-
-#   celery_worker:
-#     build:
-#       context: .
-#     command: celery -A autoblue_django worker --loglevel=info
-#     volumes:
-#       - .:/app
-#     env_file:
-#       - .env
-#     depends_on:
-#       - redis
-#       - db
-
-#   celery_beat:
-#     build:
-#       context: .
-#     command: celery -A autoblue_django beat --loglevel=info
-#     volumes:
-#       - .:/app
-#     env_file:
-#       - .env
-#     depends_on:
-#       - redis
-#       - db
-
-# volumes:
-#   postgres_data:
-
-
-version: '3.8'
-
 services:
-  web:
-    build: .
-    command: gunicorn autoblue_django.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    env_file:
-      - .env
-    depends_on:
-      - redis
-      - db
 
   db:
     image: postgres:15
@@ -91,7 +16,7 @@ services:
 
   celery:
     build: .
-    command: celery -A autoblue_django.celery:app worker --loglevel=info
+    command: ["celery", "-A", "auto_app.celery:app", "worker", "--loglevel=info"]
     volumes:
       - .:/app
     depends_on:
@@ -99,6 +24,20 @@ services:
     env_file:
       - .env
 
+  web:
+    build: .
+    command: >  
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000" # gunicorn autoblue_django.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - db
+      
 volumes:
   postgres_data:
   redis_data:
