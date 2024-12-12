@@ -17,22 +17,23 @@ jobs:
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      # - name: Build and push Docker image
-      #   run: |
-      #     docker build \
-      #       --build-arg DJANGO_SETTINGS_MODULE=${{ secrets.DJANGO_SETTINGS_MODULE }} \
-      #       --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
-      #       --build-arg DB_NAME=${{ secrets.DB_NAME }} \
-      #       --build-arg DB_USER=${{ secrets.DB_USER }} \
-      #       --build-arg DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-      #       --build-arg DB_HOST=${{ secrets.DB_HOST }} \
-      #       --build-arg DB_PORT=${{ secrets.DB_PORT }} \
-      #       --build-arg ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }} \
-      #       --build-arg REDIS_HOST=${{ secrets.REDIS_HOST }} \
-      #       -t your-dockerhub-user/your-image-name:latest .
+      - name: Build Docker image
+        run: |
 
-      # - name: Push Docker image to Docker Hub
-      #   run: docker push your-dockerhub-user/your-image-name:latest
+          docker build \
+            --build-arg DJANGO_SETTINGS_MODULE=${{ secrets.DJANGO_SETTINGS_MODULE }} \
+            --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
+            --build-arg DB_NAME=${{ secrets.DB_NAME }} \
+            --build-arg DB_USER=${{ secrets.DB_USER }} \
+            --build-arg DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            --build-arg DB_HOST=${{ secrets.DB_HOST }} \
+            --build-arg DB_PORT=${{ secrets.DB_PORT }} \
+            --build-arg ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }} \
+            --build-arg REDIS_HOST=${{ secrets.REDIS_HOST }} \
+            -t yassinecodes/autoblue:latest .
+
+      - name: Push Docker image to Docker Hub
+        run: docker push yassinecodes/autoblue:latest
 
       # - name: Deploy to production
       #   run: |
