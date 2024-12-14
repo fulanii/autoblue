@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 # wait for database
 if [ "$DATABASE" = "postgres" ]; then
     echo "Waiting for PostgreSQL..."
@@ -24,7 +22,8 @@ python manage.py migrate --noinput
 # Collect static files
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
-
+ 
 # Start Gunicorn
 echo "Starting Gunicorn..."
-exec gunicorn --bind 0.0.0.0:8000 autoblue_django.wsgi:application
+exec gunicorn autoblue_django.wsgi:application --bind 0.0.0.0:8000 --workers=3 --threads=4
+

@@ -1,20 +1,20 @@
 /* base */
-@import "base/reset.css";
-@import "base/base.css";
+@import url("base/reset.css");
+@import url("base/base.css");
 
 /* layouts */
-@import "layouts/header.css";
-@import "layouts/footer.css";
+@import url("layouts/header.css");
+@import url("layouts/footer.css");
 
 /* pages */
-@import "pages/home.css";
-@import "pages/register.css";
-@import "pages/login.css";
-@import "pages/dashboard.css";
-@import "pages/partials/create_tab.css";
-@import "pages/partials/scheduled_tab.css";
-@import "pages/partials/bot_setting.css";
-@import "pages/partials/website_tab.css";
+@import url("pages/home.css");
+@import url("pages/register.css");
+@import url("pages/login.css");
+@import url("pages/dashboard.css");
+@import url("pages/partials/create_tab.css");
+@import url("pages/partials/scheduled_tab.css");
+@import url("pages/partials/bot_setting.css");
+@import url("pages/partials/website_tab.css");
 
 /* others */
 @import "utilities/colors.css";

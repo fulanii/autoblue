@@ -22,3 +22,4 @@ build/
 Thumbs.db
 staticfiles
 dumb.rst
+backups/

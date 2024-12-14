@@ -12,7 +12,7 @@ ENVIRONMENT = os.getenv('DJANGO_ENV', 'local')
 # Load environment-specific .env file
 if ENVIRONMENT == 'production':
     environ.Env.read_env('.env.prod')
-elif ENVIRONMENT == "local":
+elif ENVIRONMENT == "development":
     environ.Env.read_env('.env.dev')
 
 

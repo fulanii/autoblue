@@ -7,7 +7,7 @@ SECRET_KEY = get_env_variable("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -26,5 +26,3 @@ DATABASES = {
     },    
 }
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-print(STATIC_ROOT)

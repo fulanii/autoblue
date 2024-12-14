@@ -1,4 +1,3 @@
-# Use the official Python image
 FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED 1
@@ -28,7 +27,6 @@ ARG DB_PORT
 ARG ENCRYPTION_KEY
 ARG REDIS_HOST
 
-# Set environment variables for runtime
 ENV DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE \
     SECRET_KEY=$SECRET_KEY \
     DATABASE=$DATABASE \
@@ -40,24 +38,20 @@ ENV DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE \
     ENCRYPTION_KEY=$ENCRYPTION_KEY \
     REDIS_HOST=$REDIS_HOST 
 
-# Expose the port
 EXPOSE 8000
 
 # Copy and configure entrypoint.sh
 COPY entrypoint.sh /app/entrypoint.sh
 
-# set user to root temporarily
 USER root
 
-# istall netcat
-RUN apt-get update && apt install netcat-traditional
+# Install netcat
+RUN apt-get update && apt install netcat-traditional -y
 
 RUN chmod +x /app/entrypoint.sh
 
-# Set user back to non-root user
+
+# Use non-root user
 USER myuser
 
-
-# Use entrypoint to run the app
 ENTRYPOINT ["/app/entrypoint.sh"]
-
