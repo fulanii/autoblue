@@ -27,17 +27,6 @@ ARG DB_PORT
 ARG ENCRYPTION_KEY
 ARG REDIS_HOST
 
-ENV DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE \
-    SECRET_KEY=$SECRET_KEY \
-    DATABASE=$DATABASE \
-    DB_NAME=$DB_NAME \
-    DB_USER=$DB_USER \
-    DB_PASSWORD=$DB_PASSWORD \
-    DB_HOST=$DB_HOST \
-    DB_PORT=$DB_PORT \
-    ENCRYPTION_KEY=$ENCRYPTION_KEY \
-    REDIS_HOST=$REDIS_HOST 
-
 EXPOSE 8000
 
 # Copy and configure entrypoint.sh
@@ -47,6 +36,8 @@ USER root
 
 # Install netcat
 RUN apt-get update && apt install netcat-traditional -y
+
+RUN apt-get update && apt-get install -y supervisor
 
 RUN chmod +x /app/entrypoint.sh
 

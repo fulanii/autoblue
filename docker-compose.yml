@@ -11,6 +11,7 @@ services:
       - .env.prod
     depends_on:
       - db
+      - redis
     entrypoint: ["/app/entrypoint.sh"]
 
   db:
@@ -23,19 +24,10 @@ services:
 
   redis:
     image: redis:7.2
+    command: redis-server --appendonly yes
     volumes:
       - redis_data:/data
 
-  celery:
-    build: .
-    command:
-      ["celery", "-A", "auto_app.celery:app", "worker", "--loglevel=info"]
-    volumes:
-      - .:/app
-    depends_on:
-      - redis
-    env_file:
-      - .env.prod
   
   nginx:
     image: nginx:latest
