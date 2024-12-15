@@ -4,3 +4,8 @@
 *.pyo
 node_modules
 .env
+.env.dev
+.env.prod
+supervisord.pid
+supervisord.log
+db.sqlite3

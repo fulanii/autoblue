@@ -23,3 +23,5 @@ Thumbs.db
 staticfiles
 dumb.rst
 backups/
+supervisord.pid
+supervisord.log
