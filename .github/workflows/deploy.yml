@@ -19,8 +19,8 @@ jobs:
 
       - name: Build and push Docker Compose services
         run: |
-          docker compose -f docker-compose.prod.yml build
-          docker compose -f docker-compose.prod.yml push
+          docker compose -f docker-compose.yml build
+          docker compose -f docker-compose.yml push
 
       # - name: Deploy to production using Docker Compose
       #   run: |
