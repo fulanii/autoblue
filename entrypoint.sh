@@ -17,7 +17,6 @@ if [ "$DATABASE" = "postgres" ]; then
     echo "PostgreSQL started"
 fi
 
-
 # Run database migrations
 echo "Running database migrations..."
 python manage.py migrate django_celery_results
@@ -27,14 +26,6 @@ python manage.py migrate --noinput
 # Collect static files
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
-
-# # start celery
-# echo "Starting celert"
-# exec  celery -A auto_app.celery:app worker --loglevel=info
-
-# # Start Gunicorn
-# echo "Starting Gunicorn..."
-# exec gunicorn autoblue_django.wsgi:application --bind 0.0.0.0:8000 --workers=3 --threads=4
 
 # Start Supervisor
 exec supervisord -c ./supervisord.conf

@@ -15,7 +15,6 @@ if ENVIRONMENT == 'production':
 elif ENVIRONMENT == "development":
     environ.Env.read_env('.env.dev')
 
-
 def get_settings_path() -> str:
     """
     Gets project settings path from the .env file

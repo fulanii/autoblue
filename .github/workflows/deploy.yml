@@ -13,50 +13,20 @@ jobs:
 
       - name: Set up Docker Buildx 
         uses: docker/setup-buildx-action@v1
-      
+
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build Docker image
+      - name: Build and push Docker Compose services
         run: |
-          docker build -t yassinecodes/autoblue:latest .
-          
-          # docker build \
-          # --build-arg DJANGO_ENV="${{ secrets.DJANGO_ENV }}"\
-          #   --build-arg DJANGO_SETTINGS_MODULE="${{ secrets.DJANGO_SETTINGS_MODULE }}"\
-          #   --build-arg SECRET_KEY="${{ secrets.SECRET_KEY }}"\
-          #   --build-arg ENCRYPTION_KEY="${{ secrets.ENCRYPTION_KEY }}" \
-          #   --build-arg ALLOWED_HOSTS="${{ secrets.ALLOWED_HOSTS }}" \
-          #   --build-arg REDIS_HOST="${{ secrets.REDIS_HOST }}" \
-          #   --build-arg DB_NAME="${{ secrets.DB_NAME }}"\
-          #   --build-arg DB_USER="${{ secrets.DB_USER }}" \
-          #   --build-arg DB_HOST="${{ secrets.DB_HOST }}" \
-          #   --build-arg DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
-          #   --build-arg DB_PORT="${{ secrets.DB_PORT }}" \
-          #   --build-arg DATABASE="${{ secrets.DATABASE }}" \
-          #   --build-arg POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" \
-          #   -t yassinecodes/autoblue:latest .
+          docker compose -f docker-compose.prod.yml build
+          docker compose -f docker-compose.prod.yml push
 
-      - name: Push Docker image to Docker Hub
-        run: docker push yassinecodes/autoblue:latest
-
-      # - name: Deploy to production
+      # - name: Deploy to production using Docker Compose
       #   run: |
       #     sshpass -p "${{ secrets.PRODUCTION_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }} << EOF
-      #     docker pull your-dockerhub-user/your-image-name:latest
-      #     docker stop your-container-name || true
-      #     docker rm your-container-name || true
-      #     docker run -d \
-      #       --name your-container-name \
-      #       -p 8000:8000 \
-      #       --env DJANGO_SETTINGS_MODULE=${{ secrets.DJANGO_SETTINGS_MODULE }} \
-      #       --env SECRET_KEY=${{ secrets.SECRET_KEY }} \
-      #       --env DB_NAME=${{ secrets.DB_NAME }} \
-      #       --env DB_USER=${{ secrets.DB_USER }} \
-      #       --env DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-      #       --env DB_HOST=${{ secrets.DB_HOST }} \
-      #       --env DB_PORT=${{ secrets.DB_PORT }} \
-      #       --env ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }} \
-      #       --env REDIS_HOST=${{ secrets.REDIS_HOST }} \
-      #       your-dockerhub-user/your-image-name:latest
+      #       cd /path/to/your/production/directory
+      #       docker-compose pull
+      #       docker-compose down
+      #       docker-compose up -d
       #     EOF
