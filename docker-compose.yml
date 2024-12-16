@@ -2,6 +2,7 @@ services:
   web:
     build:
       context: .
+    image: yassinecodes/autoblue:latest 
     volumes:
       - .:/app
       - ./static:/staticfiles 
