@@ -16,6 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project files
 COPY . .
 
+ARG DJANGO_ENV
 ARG DJANGO_SETTINGS_MODULE
 ARG SECRET_KEY
 ARG DATABASE
@@ -41,7 +42,8 @@ RUN apt-get update && apt-get install -y supervisor
 
 RUN chmod +x /app/entrypoint.sh
 
-# # Use non-root user
-# USER myuser
+
+# Use non-root user
+USER myuser
 
 ENTRYPOINT ["/app/entrypoint.sh"]

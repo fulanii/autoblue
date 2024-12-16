@@ -7,7 +7,7 @@ from cryptography.fernet import Fernet
 env = environ.Env()
 
 # Determine environment
-ENVIRONMENT = os.getenv('DJANGO_ENV', 'local')
+ENVIRONMENT = os.getenv('DJANGO_ENV')
 
 # Load environment-specific .env file
 if ENVIRONMENT == 'production':
