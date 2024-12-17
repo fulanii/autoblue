@@ -41,7 +41,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 # Ensure correct permissions
 RUN chmod 644 /etc/nginx/nginx.conf
-RUN chmod -R 755 /app/staticfiles
 
 # Switch to non-root user
 USER myuser
