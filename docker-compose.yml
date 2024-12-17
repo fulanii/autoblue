@@ -29,19 +29,16 @@ services:
     volumes:
       - redis_data:/data
 
-  
   nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf  
-      - ./static:/staticfiles
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
     ports:
-      - "80:80" 
+      - "80:80"
     depends_on:
-      - web 
+      - web
 
 volumes:
   postgres_data:
   redis_data:
   static:
-  # nginx.conf:
