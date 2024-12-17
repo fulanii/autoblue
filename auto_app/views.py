@@ -85,7 +85,7 @@ def dashboard(request):
     formatted_datetime = now.strftime("%Y-%m-%dT%H:%M")
 
     user_blue_profile = BlueskyProfile.objects.filter(user_id=login_user.id).first()
-    user_all_blue_post = Post.objects.filter(user_id=login_user.id)
+    user_all_blue_post = Post.objects.filter(user_id=login_user.id).order_by('-posting_date')
 
     context = {
         "min_date": formatted_datetime,

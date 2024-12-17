@@ -1,7 +1,9 @@
 #dashboard {
   font-family: Arial, sans-serif;
   padding: 20px;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .dashboard-header h1 {
@@ -18,7 +20,6 @@
 
   flex-wrap: wrap; /* Ensure buttons wrap on smaller screens */
   gap: 10px; /* Add spacing between buttons */
-
 }
 
 .tab-button {
@@ -28,7 +29,6 @@
   transition: background 0.3s;
 
   flex: 1; /* Makes buttons equal width */
-
 }
 
 .tab-button.active {
@@ -45,7 +45,6 @@
 /* media queries ----------------- media queries */
 /* breakdown 440px and bellow */
 
-
 @media (max-width: 440px) {
   .dashboard-tabs {
     flex-direction: column; /* Stack the buttons vertically */
@@ -55,11 +54,11 @@
   .tab-button {
     font-size: 14px; /* Slightly smaller font size for smaller screens */
   }
-  .dashboard-header h1 { 
-    margin: 0 0 50px 0;
+  .dashboard-header h1 {
+    margin: 50px 0 50px 0;
     font-size: 20px;
   }
-  #dashboard{
+  #dashboard {
     padding: 5px;
   }
 }

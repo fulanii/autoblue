@@ -1,6 +1,4 @@
 #footer {
-  /* position: absolute;
-  bottom: 0; */
   background-color: var(--primary-bg-color);
   display: flex;
   flex-direction: column;
@@ -8,7 +6,7 @@
   padding: 50px;
   border-top: solid;
   border-width: thin;
-  /* height: 50px; */
+  margin-top: auto;
 }
 .footer__p {
   color: var(--footer-text-color);

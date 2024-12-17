@@ -3,8 +3,12 @@ body {
   color: var(--primary-text-color);
   background-color: var(--body-bg-color);
   overflow-x: hidden;
+
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 #main {
   /* height: 100vh; */
-  margin: 100px 0 100px 0;
 }

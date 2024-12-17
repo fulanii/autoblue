@@ -43,11 +43,11 @@ jobs:
         run: |
           docker compose -f docker-compose.yml push
 
-      # - name: Deploy to production using Docker Compose
-      #   run: |
-      #     sshpass -p "${{ secrets.PRODUCTION_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }} << EOF
-      #       cd /path/to/your/production/directory
-      #       docker-compose pull
-      #       docker-compose down
-      #       docker-compose up -d
-      #     EOF
+      - name: Deploy to production using Docker Compose
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }} << EOF 
+            cd /home
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d --build
+          EOF
