@@ -33,6 +33,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.nginx
+    image: yassinecodes/autoblue-nginx:latest
     ports:
       - "80:80"
     depends_on:
