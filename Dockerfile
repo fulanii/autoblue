@@ -30,8 +30,10 @@ RUN apt-get update && apt-get install -y supervisor
 
 RUN chmod +x /app/entrypoint.sh
 
+RUN touch /app/supervisord.log /app/supervisord.pid \
+    && chown -R myuser:myuser /app
 
-# Use non-root user
+# Switch to non-root user
 USER myuser
 
 ENTRYPOINT ["/app/entrypoint.sh"]
