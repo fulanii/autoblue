@@ -33,6 +33,15 @@ RUN chmod +x /app/entrypoint.sh
 RUN touch /app/supervisord.log /app/supervisord.pid \
     && chown -R myuser:myuser /app
 
+# Install  NGINX
+RUN apt-get update && apt-get install -y nginx && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Copy your custom nginx.conf file into the image
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Ensure correct permissions
+RUN chmod 644 /etc/nginx/nginx.conf
+
 # Switch to non-root user
 USER myuser
 
