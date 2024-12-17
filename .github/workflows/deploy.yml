@@ -52,7 +52,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }} << EOF 
             cd /home
-            docker-compose pull
-            docker-compose down
-            docker-compose up -d --build
+            docker compose pull
+            docker compose down
+            docker compose up -d --build
           EOF
