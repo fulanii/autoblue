@@ -44,4 +44,4 @@ volumes:
   postgres_data:
   redis_data:
   static:
-  nginx.conf:
+  # nginx.conf:
