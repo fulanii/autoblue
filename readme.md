@@ -1,5 +1,5 @@
 # Autoblue
-Autoblue is an open-source web app for automating posts on [Bluesky](bsky.app), thanks to the [Bluesky](bsky.app) python api.    
+Autoblue is an open-source web app for automating posts on [Bluesky](bsky.app), thanks to the [Bluesky](bsky.app) python api.
 
 ## Curent Features
 * User registration and login.
