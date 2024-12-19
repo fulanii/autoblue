@@ -25,3 +25,4 @@ dumb.rst
 backups/
 supervisord.pid
 supervisord.log
+docker-compose.prod.yml

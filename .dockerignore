@@ -10,3 +10,5 @@ node_modules
 supervisord.pid
 supervisord.log
 db.sqlite3
+autoapp_demo.gif
+docker-compose.prod.yml
