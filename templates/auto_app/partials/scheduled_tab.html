@@ -19,7 +19,7 @@
               {% if not post.is_posted %}
                 <div class="scheduled-card">
                   <div class="card-content">
-                    <p class="post-text">{{ post.post }}</p>
+                    <p class="post-text">{{ post.post|linebreaksbr }}</p>
                     <p class="post-date">Posting Date: {{ post.posting_date }}</p>
                   </div>
                   <button class="cancel-btn" onclick="cancelPost('{{ post.id }}')">Cancel</button>

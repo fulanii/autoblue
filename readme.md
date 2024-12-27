@@ -56,3 +56,6 @@ python manage.py runserver
 
 ## Usage
 Navigate to the homepage and log in. Use the interface to add your Bluesky logins, create posts or delete posts.
+
+## Support
+* Star the project :)
