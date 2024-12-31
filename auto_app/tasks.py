@@ -11,13 +11,14 @@ from .celery import app
 def post_scheduled_content(post_id, blue_username, blue_password):
     try:
         post = Post.objects.get(id=post_id)
+        
+        if post.is_posted != True:
+            client = Client()
+            client.login(blue_username, blue_password)
+            response = client.send_post(post.post)
 
-        client = Client()
-        client.login(blue_username, blue_password)
-        response = client.send_post(post.post)
-
-        post.is_posted = True
-        post.save()
+            post.is_posted = True
+            post.save()
     except Post.DoesNotExist:
         print(f"Post with ID {post_id} does not exist.")
 
