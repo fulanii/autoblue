@@ -17,7 +17,7 @@
             {% for post in all_blue_post %}
 
               {% if not post.is_posted %}
-                <div class="scheduled-card">
+                <div class="scheduled-card to-be-posted-card">
                   <div class="card-content">
                     <p class="post-text">{{ post.post|linebreaksbr }}</p>
                     <p class="post-date">Posting Date: {{ post.posting_date }}</p>
@@ -40,7 +40,7 @@
           {% if all_blue_post %}
           {% for post in all_blue_post %}
                 {% if post.is_posted %}
-                  <div class="scheduled-card">
+                  <div class="scheduled-card already-posted-card">
                     <div class="card-content">
                       <p class="post-text">{{ post.post|linebreaksbr }}</p>
                       <p class="post-date">Posted Date: {{ post.posting_date }}</p>

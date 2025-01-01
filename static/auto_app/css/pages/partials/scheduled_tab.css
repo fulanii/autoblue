@@ -50,15 +50,7 @@
 }
 
 .scheduled-card {
-  /* background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
-  background-color: #94c2f2;
+  /* background-color: #94c2f2; */
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 15px;
@@ -67,6 +59,12 @@
   flex-direction: column;
   justify-content: space-between;
   color: black;
+}
+.to-be-posted-card{
+  background-color: #f5746eb8;
+}
+.already-posted-card{
+  background-color: #94c2f2;
 }
 
 .card-content {
